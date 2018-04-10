@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+		<title>我的提问</title>
+	</head>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.question-box{
+			margin: 10px auto;
+			position: relative;
+			padding:10px 20px;
+			box-sizing: border-box;
+			margin-top: 10px;
+		}
+		.dot{
+			position: absolute;
+			top: 18px;
+			right: 25px;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background-color: #e70e0e;
+		}
+		span{
+			font-size: 15px;
+			line-height: 2em;
+		}
+		.ask{
+			color: #e70e0e;
+		}
+		.ask-text{
+			color: #2c2c2c;
+		}
+		.answer{
+			color: #3349bb;
+		}
+		.anser-text{
+			color: #a9a9a9;
+		}
+		.hide{
+			display: none;
+		}
+		a{
+			text-decoration: none;
+		}
+		.ask-question{
+			display: block;
+			width: 48%;
+			color: #FFFFFF;
+			background-color: #006bb2;
+			height: 30px;
+			line-height: 30px;
+			font-size: 15px;
+			text-align: center;
+			border-radius: 5px;
+			position: absolute;
+			bottom: 20px;
+			left: 26%;
+		}
+	</style>
+	<body>
+	<div class="question-box">
+		<div >
+			<span class="ask">问：</span><span class="ask-text">2018年年会开启通知</span>
+			<span class="dot"></span>
+		</div>
+		<div >
+			<span class="answer">答：</span><span class="anser-text">女士们，先生们，2018年的年会我们决定在 大酒店开启，会议时间为：2018-10-11....</span>
+		</div>
+	</div>	
+	<div class="question-box">
+		<div >
+			<span class="ask">问：</span><span class="ask-text">2018年年会开启通知</span>
+			<span class="dot hide"></span>
+		</div>
+		<div >
+			<span class="answer">答：</span><span class="anser-text">女士们，先生们，2018年的年会我们决定在 大酒店开启，会议时间为：2018-10-11....</span>
+		</div>
+	</div>	
+	<a href="ask-question.html" class="ask-question">提问</a>	
+	</body>
+</html>

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+		<title>照片上传</title>
+	</head>
+	<link rel="stylesheet" href="css/tinyImgUpload.css">
+	<link rel="stylesheet prefetch" href="css/photoswipe.css">
+	<link rel="stylesheet prefetch" href="css/default-skin/default-skin.css">
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="js/photoswipe.js"></script>
+	<script src="js/photoswipe-ui-default.min.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		
+		body {
+			width: 100%;
+		}
+		
+		input,
+		button,
+		textarea {
+			outline: none;
+		}
+		
+		button {
+			text-align: center;
+			line-height: 2em;
+			background-color: #006bb2;
+			width: 65px;
+			height: 25px;
+			color: #FFFFFF;
+			border: none;
+			border-radius: 5px;
+			margin-left: 4%;
+		}
+		
+		.say-box {
+			margin-top: 30px;
+			margin-bottom: 30px;
+			margin-left: 4%;
+			position: relative;
+		}
+		
+		textarea {
+			border: none;
+			display: block;
+			margin: 0 auto;
+			margin-bottom: 20px;
+			outline: none;
+			width: 100%;
+			height: 100px;
+			resize: none;
+		}
+		
+		.history-box {
+			width: 92%;
+			height: 100px;
+			margin: 10px auto;
+		}
+		
+		.text {
+			width: 100%;
+			height: 500px;
+		}
+		
+		.history-box img {
+			width: 73px;
+			margin-bottom: 5px;
+		}
+		
+		.file {
+			display: inline-block;
+			position: relative;
+			height: 45px;
+			line-height: 45px;
+			width: 45px;
+			border: 2px solid #A9A9A9;
+			color: #A9A9A9;
+			text-decoration: none;
+			font-size: 20px;
+			text-align: center;
+		}
+		
+		.file input {
+			width: 45px;
+			height: 45px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		
+		.file input {
+			opacity: 0;
+			filter: alpha(opacity=0);
+			cursor: pointer;
+		}
+		
+		.btn {
+			display: inline-block;
+			height: 30px;
+			width: 80px;
+			text-align: center;
+			background-color: #006bb2;
+			color: #FFFFFF;
+			border-radius: 5px;
+			border: none;
+			font-size: 15px;
+			position: absolute;
+			right: 15px;
+			/*margin-top: 15px;*/
+		}
+		
+		.ask {
+			font-size: 14px;
+			height: 100px;
+			line-height: 1.5em;
+			width: 65%;
+			float: right;
+			position: relative;
+		}
+		
+		.ask p {
+			word-break: break-all;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			/** 对象作为伸缩盒子模型显示 **/
+			-webkit-box-orient: vertical;
+			/** 设置或检索伸缩盒对象的子元素的排列方式 **/
+			-webkit-line-clamp: 2;
+			/** 显示的行数 **/
+			overflow: hidden;
+			/** 隐藏超出的内容 **/
+		}
+		
+		.author {
+			position: absolute;
+			bottom: 15px;
+			left: 0;
+			color: #bdbdbd;
+		}
+		
+		.img {
+			width: 35%;
+		}
+		
+		.img img {
+			width: 40%;
+			float: left;
+			margin-right: 5%;
+		}
+		
+		#test-image-preview {
+			border: 1px solid #ccc;
+			width: 100px;
+			height: 100px;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+		.swiper-container{
+			width: 100%;
+			height: 100%;
+			display: none;
+			vertical-align: middle;
+		}
+.popup{
+	width: 100%;
+	height: 100%;
+	display: none;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 1501;
+	position: fixed;
+	top: 0;
+}
+.popup-box{
+	width: 70%;
+	height: 120px;
+	margin: 0 auto;
+	vertical-align: middle;
+	background-color: #FFFFFF;
+	position: relative;
+	margin-top: 200px;
+}	
+
+.popup-box .text{
+	width: 100%;
+	height: 60px;
+	line-height: 60px;	
+	text-align: center;
+}
+	
+.popup-box .cancel{
+	width: 60px;
+	position: absolute;
+	right: 70px;
+	bottom: 0;
+	margin-left: 0;
+	border-radius: 0;
+	background-color: #FFFFFF;
+	color: #000000;
+}
+.popup-box .confirm{
+	width: 60px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	border-radius: 0;
+	background-color: #FFFFFF;
+	color: #3349BB;
+}
+	</style>
+
+	<body>		
+		<div class="box">
+			 <div class="say-box">
+			<form action="../upload" method="post" enctype="multipart/form-data">
+				<textarea id="text" name="message" placeholder="请输入你想说的话"></textarea>
+				<!--<a href="javascript:;" class="file">+ <input type="file" name="file1" id="test-image-file" accept="image/jpeg">
+				</a>-->
+				<div id="upload">
+
+			</div>
+				<!--<p id="test-file-info"></p>
+				　<p>图片预览：</p>
+　　                     <div id="test-image-preview"></div>-->
+				<input type="submit" class="btn submit" value="发布照片" />
+			</form>
+		</div>
+		<div class="history-talk">
+			<div style="background-color: #f4f4f4;padding :10px 0">
+				<button>所有人</button>
+			</div>
+
+			<div class="history-box">
+				<div class="ask">
+					<p>2018年最火最潮流的颜色是什么？下面你最喜欢哪个呢？2018年最火最潮流的颜色是什么？下面你最喜欢哪个呢？</p>
+					<div class="author">
+						<p>我是作者的名字</p>
+						<p>2018-02-02 16:30</p>
+					</div>
+				</div>
+				<div class="img">
+					<div class="my-gallery" data-pswp-uid="1">		
+			<figure>
+				<a href="img/say-img_03.png" data-size="670x712">
+					<img src="img/say-img_03.png">
+				</a>
+			</figure>
+			<figure>
+				<a href="img/say-img_05.png" data-size="670x712">
+					<img src="img/say-img_05.png">
+				</a>
+			</figure>
+			<figure>
+				<a href="img/say-img_07.png" data-size="670x712">
+					<img src="img/say-img_07.png">
+				</a>
+			</figure>
+			<figure>
+				<a href="img/say-img_03.png" data-size="670x712">
+					<img src="img/say-img_03.png">
+				</a>
+			</figure>
+		</div>
+				</div>
+
+			</div>
+
+			<div class="history-box">
+				<div class="ask">
+					<p>2018年最火最潮流的颜色是什么？下面你最喜欢哪个呢？</p>
+					<div class="author">
+						<p>我是作者的名字</p>
+						<p>2018-02-02 16:30</p>
+					</div>
+				</div>
+				<div class="img">
+					<div class="my-gallery" data-pswp-uid="1">		
+			<figure>
+				<a href="img/say-img_03.png" data-size="670x712">
+					<img src="img/say-img_03.png">					
+				</a>
+			</figure>
+			<figure>
+				<a href="img/say-img_05.png" data-size="670x712">
+					<img src="img/say-img_05.png">
+				</a>
+			</figure>
+			<figure>
+				<a href="img/say-img_07.png" data-size="670x712">
+					<img src="img/say-img_07.png">
+				</a>
+			</figure>
+			<figure>
+				<a href="img/say-img_03.png" data-size="670x712">
+					<img src="img/say-img_03.png">
+				</a>
+			</figure>
+		</div>
+				</div>
+			</div>
+			<div class="history-box">
+				<div class="ask">
+					<p>2018年最火最潮流的颜色是什么？下面你最喜欢哪个呢？</p>
+					<div class="author">
+						<p>我是作者的名字</p>
+						<p>2018-02-02 16:30</p>
+					</div>
+				</div>
+				<div class="img">
+				<div class="my-gallery" data-pswp-uid="1">		
+			<figure>
+				<a href="img/say-img_03.png" data-size="670x712">
+					<img src="img/say-img_03.png">
+				</a>
+			</figure>
+			<figure>
+				<a href="img/say-img_05.png" data-size="670x712">
+					<img src="img/say-img_05.png">
+				</a>
+			</figure>
+			<figure>
+				<a href="img/say-img_07.png" data-size="670x712">
+					<img src="img/say-img_07.png">
+				</a>
+			</figure>
+			<figure>
+				<a href="img/say-img_03.png" data-size="670x712">
+					<img src="img/say-img_03.png">
+				</a>
+			</figure>
+		</div>
+				</div>
+			</div>
+		</div>
+			
+		</div>
+		
+			<!-- Root element of PhotoSwipe. Must have class pswp. -->
+		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+			<!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+			<div class="pswp__bg"></div>
+
+			<!-- Slides wrapper with overflow:hidden. -->
+			<div class="pswp__scroll-wrap">
+
+				<!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+				<div class="pswp__container">
+					<div class="pswp__item">						
+					</div>
+					<div class="pswp__item"></div>
+					<div class="pswp__item"></div>
+				</div>
+
+				<!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+				<div class="pswp__ui pswp__ui--hidden">
+                  <div class="pswp__bottom-bar" style="position: absolute;bottom: 10px;left:0;color: #FFFFFF;font-size: 16px;">
+                  	2018年最火最潮流的颜色是什么？下面你最喜欢哪个呢？
+                  </div>
+					<div class="pswp__top-bar">
+
+						<!--  Controls are self-explanatory. Order can be changed. -->
+
+						<div class="pswp__counter"></div>
+                        <!--<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>-->
+						<!--<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>-->
+                        <!--<button class="pswp__button" id="del" title="delete">删除</button>-->
+						<!--<button class="pswp__button pswp__button--share" title="Share"></button>-->
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+						<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                             <!--<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>-->
+						<!-- element will get class pswp__preloader--active when preloader is running -->
+						<div class="pswp__preloader">
+							<div class="pswp__preloader__icn">
+								<div class="pswp__preloader__cut">
+									<div class="pswp__preloader__donut"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+						<div class="pswp__share-tooltip"></div>
+					</div>
+
+					<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+					<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+					<div class="pswp__caption">
+						<div class="pswp__caption__center"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="popup">
+		<div class="popup-box">
+			<div class="text">
+				要删除这张照片？
+			</div>
+			<div>
+				<button class="cancel">取消</button>
+				<button class="confirm">确定</button>
+			</div>
+		</div>
+   </div>
+   
+   <script src="js/tinyImgUpload.js"></script>
+		<script type="text/javascript">	
+			//添加上传并预览图片
+				document.documentElement.style.fontSize = document.documentElement.clientWidth * 0.1 + 'px';
+			var options = {
+				path: '/',
+				onSuccess: function(res) {
+					console.log(res);
+				},
+				onFailure: function(res) {
+					console.log(res);
+				}
+			}
+			var upload = tinyImgUpload('#upload', options);
+			document.getElementsByClassName('submit')[0].onclick = function(e) {
+				upload();
+			}
+							
+			//删除
+			$("#del").click(function(){
+				alert(22);
+				$(".popup").show();			
+			});
+			$(".confirm").click(function(){
+				var imgsrc=[];
+			var len=$(".my-gallery img").length;
+			for(var i=0;i<len;i++){
+			   imgsrc[i]=$(".my-gallery img").eq(i).attr("src");	
+			 }
+			console.log(imgsrc);
+			console.log(len);
+			});
+				$(".cancel").click(function(){
+				$(".popup").hide();
+			});
+			
+			
+			
+			var initPhotoSwipeFromDOM = function(gallerySelector) {
+
+				// 解析来自DOM元素幻灯片数据（URL，标题，大小...）
+				// (children of gallerySelector)
+				var parseThumbnailElements = function(el) {
+					var thumbElements = el.childNodes,
+						numNodes = thumbElements.length,
+						items = [],
+						figureEl,
+						linkEl,
+						size,
+						item;
+
+					for(var i = 0; i < numNodes; i++) {
+
+						figureEl = thumbElements[i]; // <figure> element
+
+						// 仅包括元素节点
+						if(figureEl.nodeType !== 1) {
+							continue;
+						}
+						linkEl = figureEl.children[0]; // <a> element
+
+						size = linkEl.getAttribute('data-size').split('x');
+
+						// 创建幻灯片对象
+						item = {
+							src: linkEl.getAttribute('href'),
+							w: parseInt(size[0], 10),
+							h: parseInt(size[1], 10)
+						};
+
+						if(figureEl.children.length > 1) {
+							// <figcaption> content
+							item.title = figureEl.children[1].innerHTML;
+						}
+
+						if(linkEl.children.length > 0) {
+							// <img> 缩略图节点, 检索缩略图网址
+							item.msrc = linkEl.children[0].getAttribute('src');
+						}
+
+						item.el = figureEl; // 保存链接元素 for getThumbBoundsFn
+						items.push(item);
+					}
+
+					return items;
+				};
+
+				// 查找最近的父节点
+				var closest = function closest(el, fn) {
+					return el && (fn(el) ? el : closest(el.parentNode, fn));
+				};
+
+				// 当用户点击缩略图触发
+				var onThumbnailsClick = function(e) {
+					e = e || window.event;
+					e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+					var eTarget = e.target || e.srcElement;
+
+					// find root element of slide
+					var clickedListItem = closest(eTarget, function(el) {
+						return(el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+					});
+
+					if(!clickedListItem) {
+						return;
+					}
+
+					// find index of clicked item by looping through all child nodes
+					// alternatively, you may define index via data- attribute
+					var clickedGallery = clickedListItem.parentNode,
+						childNodes = clickedListItem.parentNode.childNodes,
+						numChildNodes = childNodes.length,
+						nodeIndex = 0,
+						index;
+
+					for(var i = 0; i < numChildNodes; i++) {
+						if(childNodes[i].nodeType !== 1) {
+							continue;
+						}
+
+						if(childNodes[i] === clickedListItem) {
+							index = nodeIndex;
+							break;
+						}
+						nodeIndex++;
+					}
+
+					if(index >= 0) {
+						// open PhotoSwipe if valid index found
+						openPhotoSwipe(index, clickedGallery);
+					}
+					return false;
+				};
+
+				// parse picture index and gallery index from URL (#&pid=1&gid=2)
+				var photoswipeParseHash = function() {
+					var hash = window.location.hash.substring(1),
+						params = {};
+
+					if(hash.length < 5) {
+						return params;
+					}
+
+					var vars = hash.split('&');
+					for(var i = 0; i < vars.length; i++) {
+						if(!vars[i]) {
+							continue;
+						}
+						var pair = vars[i].split('=');
+						if(pair.length < 2) {
+							continue;
+						}
+						params[pair[0]] = pair[1];
+					}
+
+					if(params.gid) {
+						params.gid = parseInt(params.gid, 10);
+					}
+
+					return params;
+				};
+
+				var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+					var pswpElement = document.querySelectorAll('.pswp')[0],
+						gallery,
+						options,
+						items;
+
+					items = parseThumbnailElements(galleryElement);
+
+					// 这里可以定义参数
+					options = {
+						barsSize: {
+							top: 100,
+							bottom: 100
+						},
+						fullscreenEl: false, // 是否支持全屏按钮
+						shareButtons: [
+							{ id: 'wechat', label: '分享微信', url: '#' },
+							{ id: 'weibo', label: '新浪微博', url: '#' },
+							{ id: 'download', label: '保存图片', url: '{{raw_image_url}}', download: true }
+						], // 分享按钮
+
+						// define gallery index (for URL)
+						galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+
+						getThumbBoundsFn: function(index) {
+							// See Options -> getThumbBoundsFn section of documentation for more info
+							var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
+								pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+								rect = thumbnail.getBoundingClientRect();
+
+							return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+						}
+
+					};
+
+					// PhotoSwipe opened from URL
+					if(fromURL) {
+						if(options.galleryPIDs) {
+							// parse real index when custom PIDs are used 
+							for(var j = 0; j < items.length; j++) {
+								if(items[j].pid == index) {
+									options.index = j;
+									break;
+								}
+							}
+						} else {
+							// in URL indexes start from 1
+							options.index = parseInt(index, 10) - 1;
+						}
+					} else {
+						options.index = parseInt(index, 10);
+					}
+
+					// exit if index not found
+					if(isNaN(options.index)) {
+						return;
+					}
+
+					if(disableAnimation) {
+						options.showAnimationDuration = 0;
+					}
+
+					// Pass data to PhotoSwipe and initialize it
+					gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+					gallery.init();
+				};
+
+				// loop through all gallery elements and bind events
+				var galleryElements = document.querySelectorAll(gallerySelector);
+
+				for(var i = 0, l = galleryElements.length; i < l; i++) {
+					galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+					galleryElements[i].onclick = onThumbnailsClick;
+				}
+
+				// Parse URL and open gallery if it contains #&pid=3&gid=1
+				var hashData = photoswipeParseHash();
+				if(hashData.pid && hashData.gid) {
+					openPhotoSwipe(hashData.pid, galleryElements[hashData.gid - 1], true, true);
+				}
+			};
+
+			// execute above function
+			initPhotoSwipeFromDOM('.my-gallery');
+		</script>
+	</body>
+
+</html>

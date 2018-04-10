@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+		<title>我要提问</title>
+		<link rel="stylesheet" href="css/tinyImgUpload.css">
+	</head>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<style type="text/css">
+		input,
+		button,
+		textarea {
+			outline: none;
+		}
+		
+		textarea {
+			width: 94%;
+			margin: 20px auto;
+			height: 250px;
+			display: block;
+			border: none;
+			outline: none;
+			resize: none;
+		}
+		
+		.submit {
+			width: 60%;
+			display: block;
+			margin: 0 auto;
+			margin-top: 50px;
+			height: 30px;
+			line-height: 30px;
+			background-color: #006bb2;
+			border-radius: 5px;
+			border: none;
+			color: #FFFFFF;
+			font-size: 14px;
+		}
+		
+		.file {
+			display: inline-block;
+			position: relative;
+			height: 45px;
+			line-height: 45px;
+			width: 45px;
+			border: 2px solid #A9A9A9;
+			color: #A9A9A9;
+			text-decoration: none;
+			font-size: 20px;
+			text-align: center;
+		}
+		
+		.file input {
+			width: 80px;
+			height: 45px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+		
+		.file input {
+			opacity: 0;
+			filter: alpha(opacity=0);
+			cursor: pointer;
+		}
+	</style>
+
+	<body>
+		<form action="" method="post">
+			<textarea name="" rows="" cols="" placeholder="请输入你想问的问题"></textarea>
+
+			<div id="upload">
+
+			</div>
+			<button class="submit">提交</button>
+
+			<!--<p>图片预览</p>
+			<img class="file"  src="" alt="" />
+	    	<a href="javascript:;" class="file">+ <input type="file" name="file1" id="test-image-file" accept="image/png">
+				</a>
+			<input class="submit" type="submit" value="提交"/>-->
+		</form>
+
+		<script src="js/tinyImgUpload.js"></script>
+		<script type="text/javascript">
+			document.documentElement.style.fontSize = document.documentElement.clientWidth * 0.1 + 'px';
+
+			var options = {
+				path: '/',
+				onSuccess: function(res) {
+					console.log(res);
+				},
+				onFailure: function(res) {
+					console.log(res);
+				}
+			}
+
+			var upload = tinyImgUpload('#upload', options);
+			document.getElementsByClassName('submit')[0].onclick = function(e) {
+				upload();
+			}
+
+			//		  var file = e.target.files[0];//获取File对象，这里是上传单张图片，[0]代表第一张图片。如果多张，就是一个var file = e.target.files;
+			//  var type = file.type.split('/')[0];//按照惯例，不应该由前端判断格式，因为这里是根据后缀名判断的，修改后缀名仍旧可以上传，理应由后端根据文件格式来判断。
+			//  if (type !='image') {
+			//      alert('请上传图片');
+			//      return;
+			//  }
+			//  var size = Math.round(file.size / 1024 / 1024);
+			//  if (size > 3) {
+			//      alert('图片大小不得超过3M');
+			//      return;
+			//  };
+		</script>
+	</body>
+
+</html>

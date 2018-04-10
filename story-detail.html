@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+		<title>员工故事详情</title>
+	</head>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.video{
+			margin:14px auto;
+			width: 93%;
+		}
+		p{
+		margin:0 auto;
+			width: 93%;	
+			font-size: 15px;
+			line-height: 2em;
+			margin-bottom: 60px;
+		}
+		footer{
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			text-align: center;
+			height: 45px;
+			line-height: 45px;
+			background-color: #006bb2;
+			color: #FFFFFF;
+		}
+	</style>
+	<body>
+		
+		<div id="video" class="video ">
+			<video id="my_video" style="object-fit: fill; width: 100%; height: auto;" preload="load" playsinline="true" webkit-playsinline="true" x-webkit-airplay="allow" airplay="allow" x5-video-player-type="h5" x5-video-player-fullscreen="true" x5-video-orientation="portrait" src="img/movie.ogg"></video>
+		</div>
+		<p>
+			《故事会》是上海文艺出版社编辑出版的仅有114个页码、32开本的杂志，是中国最通俗的民间文学小本杂志。《故事会》创刊于1963年，是中国的老牌刊物之一。先后获得两届中国期刊的最高奖——国家期刊奖。1998年，它在世界综合类期刊中发行量排名第5。
+		</p>
+		<footer><img style="width:16px;height: auto;margin-top: 12px; margin-right:12px;" src="img/like.png"/>投TA一票</footer>
+		<script type="text/javascript">
+			window.onload = function() {
+				var myVideo = document.getElementById("my_video");
+				myVideo.play();
+				myVideo.loop = true;
+			};
+				//视频关闭
+//			$("#my_video").click(function(){
+//				history.go(-1);
+//			});
+		</script>
+	</body>
+</html>
